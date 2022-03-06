@@ -1,7 +1,8 @@
 {
   "http_addr": ":10001",
   "download_config": {
-    "expire_day" : 30,
+    "expire_dtime" : 30000,
+    "sign":0,
     "num_of_downloader": 1,
     "file_max_retry": 3,
     "download_retry_time": "2h",

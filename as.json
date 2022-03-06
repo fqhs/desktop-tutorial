@@ -1,0 +1,104 @@
+{
+  "http_addr": ":10001",
+  "download_config": {
+    "expire_day" : 30,
+    "num_of_downloader": 1,
+    "file_max_retry": 3,
+    "download_retry_time": "2h",
+    "download_start_from": "20h",
+    "s3_path_timelocation": "UTC",
+    "start_hbase_inserter" : true,
+    "start_log_analyser" : false,
+    "log_info": [
+      {
+        "s3_path_prefix": "logserver/dataflow/as.global.dev/",
+        "log_env" : "dev",
+        "log_type": "as_mix"
+      },
+      {
+        "s3_path_prefix": "logserver/dataflow/as.global.release/",
+        "log_env" : "release",
+        "log_type": "as_mix"
+      }
+    ]
+  },
+
+  "hbase_inserter" : {
+    "hbase_config": {
+      "hbase_list" : {
+        "default" : {
+          "host": "http://ld-rj9y9eh3jp2l6sx69-proxy-hbaseue-pub.hbaseue.rds.aliyuncs.com:9190",
+          "user": "root",
+          "passwd": "root",
+          "namespace": "default",
+          "timeout": 10
+        }
+      },
+      "table_list" : {
+        "user_login" : {
+          "hbasekey" : "default",
+          "table" : "as_user_login",
+          "column_family" : "cf"
+        },
+        "device_login" : {
+          "hbasekey" : "default",
+          "table" : "as_device_login",
+          "column_family" : "cf"
+        },
+        "user_gold" : {
+          "hbasekey" : "default",
+          "table" : "as_user_gold",
+          "column_family" : "cf"
+        },
+        "user_troops" : {
+          "hbasekey" : "default",
+          "table" : "as_user_troops",
+          "column_family" : "cf"
+        },
+        "user_march" : {
+          "hbasekey" : "default",
+          "table" : "as_user_march",
+          "column_family" : "cf"
+        },
+        "user_battle" : {
+          "hbasekey" : "default",
+          "table" : "as_user_battle",
+          "column_family" : "cf"
+        },
+        "user_attack" : {
+          "hbasekey" : "default",
+          "table" : "as_user_attack",
+          "column_family" : "cf"
+        }
+      }
+    },
+    "redis_conf": {
+    },
+    "log_env_map" : {
+      "prod" : 1,
+      "release" : 2,
+      "master" : 3,
+      "dev": 4
+    },
+    "start_list" : {
+      "start_geo" : 0,
+      "start_enum" : 0,
+      "start_cache": 0
+    }
+  },
+  "log_s3_config":{
+    "bucket":"as-global-log",
+    "region":"eu-central-1",
+    "aws_access_key_id":"AKIAY6HL57VTJR7MHZPQ",
+    "aws_secret_access_key":"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"
+  },
+  "progress_db_config": {
+    "addr": "localhost:3306",
+    "user": "root",
+    "password": "12345678",
+    "db": "accurate_progress",
+    "table": "s3_file_progress",
+    "max_open_conns": 10,
+    "max_idle_conns": 5
+  }
+}
